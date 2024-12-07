@@ -1,18 +1,6 @@
 import { ReactNode, createContext, useContext, useState } from "react";
-
-export interface JobDto {
-  id: string;
-  type: string;
-  url: string;
-  created_at: string;
-  company: string;
-  company_url: string;
-  location: string;
-  title: string;
-  description: string;
-  how_to_apply: string;
-  company_logo: string;
-}
+import { JobDto } from "../dto/JobDto";
+import { UserDto } from "../dto/UserDto";
 
 interface JobContextPropsDto {
   jobs: JobDto[];
@@ -25,6 +13,8 @@ interface JobContextPropsDto {
     isFulltime: boolean;
   };
   jobDetail: JobDto | null;
+  isLoggedIn: boolean;
+  user: UserDto | null;
   setJobs: React.Dispatch<React.SetStateAction<JobDto[]>>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -37,6 +27,8 @@ interface JobContextPropsDto {
     }>
   >;
   setJobDetail: React.Dispatch<React.SetStateAction<JobDto | null>>;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setUser: React.Dispatch<React.SetStateAction<UserDto | null>>;
   fetchJobs: () => void;
   fetchJobDetail: (id: string) => void;
 }
@@ -46,12 +38,14 @@ const JobContext = createContext<JobContextPropsDto | undefined>(undefined);
 export const JobProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const apiURL = "https://dev6.dansmultipro.com/api";
+  const apiURL = import.meta.env.VITE_API_URL;
   const [jobs, setJobs] = useState<JobDto[]>([]);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
   const [disabledLoadMore, setDisabledLoadMore] = useState<boolean>(false);
   const [jobDetail, setJobDetail] = useState<JobDto | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [user, setUser] = useState<UserDto | null>(null);
   const [searchParams, setSearchParams] = useState({
     description: "",
     location: "",
@@ -118,12 +112,16 @@ export const JobProvider: React.FC<{ children: ReactNode }> = ({
         searchParams,
         disabledLoadMore,
         jobDetail,
+        isLoggedIn,
+        user,
         setJobs,
         setPage,
         setLoading,
         setSearchParams,
         setDisabledLoadMore,
         setJobDetail,
+        setIsLoggedIn,
+        setUser,
         fetchJobs,
         fetchJobDetail,
       }}

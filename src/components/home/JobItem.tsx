@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { JobDto } from "../../context/jobContext";
 import { getTimeAgo } from "../../helper";
+import { JobDto } from "../../dto/JobDto";
 
 interface JobItemPropsDto {
   job: JobDto;
