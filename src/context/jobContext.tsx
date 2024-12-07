@@ -46,7 +46,7 @@ const JobContext = createContext<JobContextPropsDto | undefined>(undefined);
 export const JobProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const apiURL = "https://dev6.dansmultipro.com/api";
+  const apiURL = import.meta.env.VITE_API_URL;
   const [jobs, setJobs] = useState<JobDto[]>([]);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
