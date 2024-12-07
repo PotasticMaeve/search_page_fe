@@ -1,6 +1,7 @@
 import { Button, Checkbox, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useJobContext } from "../../context/jobContext";
+import { useEffect } from "react";
 
 interface SearchFormDto {
   description: string;
@@ -9,7 +10,7 @@ interface SearchFormDto {
 }
 
 const Search = () => {
-  const { fetchJobs, setPage, setSearchParams } = useJobContext();
+  const { setPage, searchParams, setSearchParams } = useJobContext();
 
   const form = useForm<SearchFormDto>({
     initialValues: {
@@ -41,8 +42,14 @@ const Search = () => {
       isFulltime: values.isFulltime,
     });
     setPage(1);
-    fetchJobs();
   };
+
+  useEffect(() => {
+    setSearchParams({
+      ...searchParams,
+      isFulltime: form.values.isFulltime,
+    });
+  }, [form.values.isFulltime]);
 
   return (
     <form onSubmit={form.onSubmit((values) => onSubmitSearch(values))}>
@@ -50,7 +57,9 @@ const Search = () => {
         <div className="w-full md:w-[30%]">
           <TextInput
             label={
-              <span className="font-bold text-[14px] md:text-[15px] text-[#000]">Job Description</span>
+              <span className="font-bold text-[14px] md:text-[15px] text-[#000]">
+                Job Description
+              </span>
             }
             maxLength={250}
             placeholder="Filter by title, benefits, companies, expertise"
@@ -59,7 +68,11 @@ const Search = () => {
         </div>
         <div className="w-full md:w-[30%]">
           <TextInput
-            label={<span className="font-bold text-[14px] md:text-[15px] text-[#000]">Location</span>}
+            label={
+              <span className="font-bold text-[14px] md:text-[15px] text-[#000]">
+                Location
+              </span>
+            }
             maxLength={250}
             placeholder="Filter by city, state, zip code or country"
             {...form.getInputProps("location")}
@@ -69,7 +82,11 @@ const Search = () => {
           <Checkbox
             checked={form.values.isFulltime}
             onChange={(e) => form.setFieldValue("isFulltime", e.target.checked)}
-            label={<p className="font-bold text-[14px] md:text-[15px]">Full Time Only</p>}
+            label={
+              <p className="font-bold text-[14px] md:text-[15px]">
+                Full Time Only
+              </p>
+            }
           />
           <Button type="submit" size="sm" className="bg-[#0891b2]">
             <p className="text-[#fff]">Search</p>
