@@ -1,7 +1,7 @@
 {
   "name": "search_page_fe",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,7 +13,6 @@
     "@mantine/core": "^7.14.3",
     "@mantine/form": "^7.14.3",
     "@mantine/hooks": "^7.14.3",
-    "@mantine/notifications": "^7.14.3",
     "@react-oauth/google": "^0.12.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

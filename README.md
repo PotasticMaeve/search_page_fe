@@ -1,50 +1,54 @@
-# React + TypeScript + Vite
+# Search Page FE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+Search Page FE is a job listing web application that helps users search for jobs by job description and location. This app also allows users to filter jobs based on the "Full Time" criteria and view detailed information for each job. The application also features a Google OAuth authentication system, which enabling users to sign in and access the app securely.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+### Home Page
+- Search Input: Users can search for jobs by job description and location.
+- Full-Time's Checkbox: Filter job results to show only full-time positions.
+- Job Listings: Displays a list of jobs with pagination. "More Jobs" functionality allows users to load more job data.
+- Job Count Display: Shows the number of jobs currently being displayed, for example, "Showing 3 jobs."
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Detail Page
+- Job Details: Displays detailed information for a specific job, including title, company name, job type, location, description, and other relevant data.
 
-- Configure the top-level `parserOptions` property like this:
+### Authentication
+- Google OAuth: Before accessing the app, users will require to sign in using their Google account.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Tech Stack
+- React: A JavaScript library for building user interfaces.
+- Vite: A fast build tool for React that offers fast hot module replacement (HMR).
+- TypeScript: A typed superset of JavaScript that helps catch type-related errors at compile-time.
+- TailwindCSS: A utility-first CSS framework for designing responsive, modern UIs.
+- MantineUI: A React component library providing pre-styled components for faster UI development.
+- ContextAPI: State management solution for managing the app's global state.
+- @react-oauth/google: A package to easily integrate Google OAuth authentication with your React apps. You can find more information and installation instructions on [@react-oauth/google](https://www.npmjs.com/package/@react-oauth/google).
+
+## Installation
+### 1. Clone the repository
+```bash
+$ git clone git@github.com:PotasticMaeve/search_page_fe.git
+$ cd search_page_fe
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 2. Install dependencies
+Make sure you have Node.js installed, then run the following command to install all the required dependencies:
+```bash
+$ npm install
+```
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### 3. Create a .env file
+Create a .env file at the root of your project and add the following environment variables:
+```bash
+VITE_API_URL=<your-api-url>
+VITE_GOOGLE_CLIENT_ID=<your-google-client-id>
+```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### 4. Run the app
+This will launch the app in your default browser, usually accessible at http://localhost:5173
+```bash
+$ npm run dev
 ```
