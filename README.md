@@ -4,6 +4,9 @@
 
 Search Page FE is a job listing web application that helps users search for jobs by job description and location. This app also allows users to filter jobs based on the "Full Time" criteria and view detailed information for each job. The application also features a Google OAuth authentication system, which enabling users to sign in and access the app securely.
 
+## Demo
+Check out live version of this app on [job.claudiafelicia.com](https://job.claudiafelicia.com).
+
 ## Features
 
 ### Home Page
@@ -48,7 +51,7 @@ VITE_GOOGLE_CLIENT_ID=<your-google-client-id>
 ```
 
 ### 4. Run the app
-This will launch the app in your default browser, usually accessible at http://localhost:5173
 ```bash
 $ npm run dev
 ```
+This will launch the app in your default browser, usually accessible at http://localhost:5173
