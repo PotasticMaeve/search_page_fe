@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.job-description a {
+  color: #1e40af;
+  text-decoration: underline;
+}
+
+.job-description a:hover {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.job-description strong {
+  margin-top: 30px;
+  display: block;
+  color: #000;
+  text-transform: capitalize;
+}
+
+.job-description-list li::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  color: black;
+  font-size: 1.2em;
+}
