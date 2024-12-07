@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import AppRoutes from "./AppRoutes";
 import { GoogleLogin } from "@react-oauth/google";
+import { useEffect } from "react";
+import AppRoutes from "./AppRoutes";
+import { useJobContext } from "./context/jobContext";
 
 function App() {
-  const [user, setUser] = useState<any>(null);
+  const { user, setUser } = useJobContext()
 
   const handleLoginSuccess = (response: any) => {
     sessionStorage.setItem("google_token", response.credential);

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useJobContext } from "../../context/jobContext";
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const { isLoggedIn, setIsLoggedIn } = useJobContext()
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("google_token");
