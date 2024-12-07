@@ -1,5 +1,5 @@
 import { Button } from "@mantine/core";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useJobContext } from "../../context/jobContext";
 import JobItem from "./JobItem";
 
@@ -22,10 +22,26 @@ const JobList = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
+  const headText = useMemo(() => {
+    const { description, location, isFulltime } = searchParams;
+    
+    if (searchParams && (description || location || isFulltime)) {
+      const jobCount = jobs.length;
+      if (jobCount > 1) {
+        return `Showing ${jobCount} Jobs`;
+      } else if (jobCount === 1) {
+        return `Showing 1 Job`;
+      } else {
+        return "No Jobs Found";
+      }
+    }
+    return "Job List";
+  }, [jobs.length, searchParams]);
+
   return (
     <div className="bg-[#fff] px-[15px] sm:px-[20px] md:px-[30px] py-[20px] sm:py-[20px]">
       <h1 className="text-[18px] sm:text-[20px] md:text-[24px] font-bold text-center md:text-left">
-        Job List
+        {headText}
       </h1>
       <hr className="mt-4" />
       <ul className=" mt-4">
