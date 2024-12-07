@@ -1,5 +1,5 @@
-import { JobDto } from "../context/jobContext";
-import { getTimeAgo } from "../helper";
+import { JobDto } from "../../context/jobContext";
+import { getTimeAgo } from "../../helper";
 
 interface JobItemPropsDto {
   job: JobDto;

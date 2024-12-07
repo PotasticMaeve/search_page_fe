@@ -1,23 +1,7 @@
-import { useEffect } from "react";
-import { useJobContext } from "./context/jobContext";
-import JobList from "./components/JobList";
-import Navbar from "./components/Navbar";
-import Search from "./components/Search";
+import AppRoutes from "./AppRoutes";
 
 function App() {
-  const { fetchJobs } = useJobContext();
-
-  useEffect(() => {
-    fetchJobs();
-  }, []);
-
-  return (
-    <>
-      <Navbar />
-      <Search />
-      <JobList />
-    </>
-  );
+  return <AppRoutes />;
 }
 
 export default App;
