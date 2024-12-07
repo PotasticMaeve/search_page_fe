@@ -37,8 +37,8 @@ const Search = () => {
 
   const onSubmitSearch = (values: SearchFormDto) => {
     setSearchParams({
-      description: values.description,
-      location: values.location,
+      description: values.description.trim(),
+      location: values.location.trim(),
       isFulltime: values.isFulltime,
     });
     setPage(1);
@@ -50,6 +50,21 @@ const Search = () => {
       isFulltime: form.values.isFulltime,
     });
   }, [form.values.isFulltime]);
+
+  useEffect(() => {
+    if (!form.values.description.trim() && !form.values.location.trim()) {
+      setSearchParams({
+        description: "",
+        location: "",
+        isFulltime: form.values.isFulltime,
+      });
+      setPage(1);
+    }
+  }, [form.values]);
+
+  const isSearchDisabled = !(
+    form.values.description.trim() || form.values.location.trim()
+  );
 
   return (
     <form onSubmit={form.onSubmit((values) => onSubmitSearch(values))}>
@@ -88,8 +103,13 @@ const Search = () => {
               </p>
             }
           />
-          <Button type="submit" size="sm" className="bg-[#0891b2]">
-            <p className="text-[#fff]">Search</p>
+          <Button
+            type="submit"
+            size="sm"
+            disabled={isSearchDisabled}
+            className="bg-[#0891b2]"
+          >
+            Search
           </Button>
         </div>
       </div>
