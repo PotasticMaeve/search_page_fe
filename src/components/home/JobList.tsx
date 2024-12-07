@@ -23,10 +23,12 @@ const JobList = () => {
   };
 
   return (
-    <div className="bg-[#fff] px-[30px] py-[15px]">
-      <h1 className="text-[17px] md:text-[24px] font-bold">Job List</h1>
+    <div className="bg-[#fff] px-[15px] sm:px-[20px] md:px-[30px] py-[20px] sm:py-[20px]">
+      <h1 className="text-[18px] sm:text-[20px] md:text-[24px] font-bold text-center md:text-left">
+        Job List
+      </h1>
       <hr className="mt-4" />
-      <ul>
+      <ul className=" mt-4">
         {jobs.map((job, i) => (
           <JobItem key={`${job.id}-${i}`} job={job} />
         ))}
@@ -35,7 +37,7 @@ const JobList = () => {
         fullWidth
         loading={loading}
         disabled={disabledLoadMore}
-        className="my-[20px] bg-[#0891b2]"
+        className="mt-[20px] bg-[#0891b2] text-sm sm:text-base"
         onClick={handleLoadMore}
       >
         <p>More Jobs</p>

@@ -24,6 +24,8 @@ interface JobContextPropsDto {
     location: string;
     isFulltime: boolean;
   };
+  jobDetail: JobDto | null;
+  setJobs: React.Dispatch<React.SetStateAction<JobDto[]>>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setDisabledLoadMore: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,7 +36,9 @@ interface JobContextPropsDto {
       isFulltime: boolean;
     }>
   >;
+  setJobDetail: React.Dispatch<React.SetStateAction<JobDto | null>>;
   fetchJobs: () => void;
+  fetchJobDetail: (id: string) => void;
 }
 
 const JobContext = createContext<JobContextPropsDto | undefined>(undefined);
@@ -42,10 +46,12 @@ const JobContext = createContext<JobContextPropsDto | undefined>(undefined);
 export const JobProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  const apiURL = "https://dev6.dansmultipro.com/api";
   const [jobs, setJobs] = useState<JobDto[]>([]);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
   const [disabledLoadMore, setDisabledLoadMore] = useState<boolean>(false);
+  const [jobDetail, setJobDetail] = useState<JobDto | null>(null);
   const [searchParams, setSearchParams] = useState({
     description: "",
     location: "",
@@ -57,9 +63,7 @@ export const JobProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const { description, location, isFulltime } = searchParams;
 
-      const url = new URL(
-        "https://dev6.dansmultipro.com/api/recruitment/positions.json"
-      );
+      const url = new URL(`${apiURL}/recruitment/positions.json`);
       const params: Record<string, string> = { page: page.toString() };
 
       if (description) params.description = description;
@@ -86,7 +90,20 @@ export const JobProvider: React.FC<{ children: ReactNode }> = ({
         setJobs([]);
       }
     } catch (error) {
-      console.error(error);
+      setJobs([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchJobDetail = async (id: string) => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${apiURL}/recruitment/positions/${id}`);
+      const data = await response.json();
+      setJobDetail(data);
+    } catch (error) {
+      setJobDetail(null);
     } finally {
       setLoading(false);
     }
@@ -100,11 +117,15 @@ export const JobProvider: React.FC<{ children: ReactNode }> = ({
         loading,
         searchParams,
         disabledLoadMore,
+        jobDetail,
+        setJobs,
         setPage,
         setLoading,
         setSearchParams,
         setDisabledLoadMore,
+        setJobDetail,
         fetchJobs,
+        fetchJobDetail,
       }}
     >
       {children}

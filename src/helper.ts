@@ -30,3 +30,13 @@ export const getTimeAgo = (createdAt: string) => {
     }
     return "Just now";
 };
+
+export const generateSlug = (title: string) => {
+    if (!title) {
+        throw new Error("please provide value title");
+    }
+    return title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+};
